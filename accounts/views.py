@@ -154,3 +154,51 @@ def rest_password(request):
             messages.error(request, 'Invaild email')
             return redirect('rest_password')
     return render(request, 'accounts/forget_password.html')
+
+
+def resetpass(request):
+
+    if request.method == 'POST':
+        password = request.POST['password']
+
+        password2 = request.POST['password2']
+
+        user_id = request.user.id
+        newpassword = User.objects.get(username=request.user.username)
+        # newpassword = User.objects.filter(
+        # user_id=user_id).update(password=password)
+        # newpassword = User.objects.get()
+
+        # Steps
+        # Get Values post
+        # password1 == password2 check
+        # Password update
+        # Authenticate - Login user
+        # Redirect
+
+        # newpassword = User.objects.get(user_id=user_id)
+        # newpassword.set_password('password')
+        # newpassword.save()
+
+        if password == password2:
+
+            newpassword.set_password(password)
+            newpassword.save()
+            user = auth.authenticate(
+                username=request.user.username, password=password)
+
+            if user is not None:
+                auth.login(request, user)
+                messages.success(
+                    request, 'Your password was successfully change ')
+
+                return redirect('index')
+
+            else:
+
+                messages.error(request, 'Passwords do not match')
+                return redirect('resetpass')
+
+    else:
+
+        return render(request, 'accounts/resetpass.html')

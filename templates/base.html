@@ -18,6 +18,17 @@
     <!-- main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <style>
+    .zolo_iframe {
+            position: fixed;
+            bottom: 0;
+            right: 30px;
+            height: 500px;
+            width: 360px;
+            display: none;
+            z-index: 9999
+    }
+    </style>
 </head>
 <body>
 
@@ -47,5 +58,12 @@
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
 <script src="{% static 'js/mail-script.js' %}"></script>
 <script src="{% static 'js/theme.js' %}"></script>
+<script>
+$(document).ready(function() {
+	$("#pop_zolo").click(function() {
+		$("#zolo_iframe").show();    
+	});
+});
+</script>
 </body>
 </html>

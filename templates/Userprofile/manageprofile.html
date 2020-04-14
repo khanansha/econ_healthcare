@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<section id="profile" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>
+                <i class="fas fa-user-plus"></i> Manage Your Profile</h4>
+            </div>
+            <div class="card-body">
+            {% include 'partials/_alerts.html' %}
+               
+                <form action="{% url 'profile' %}" method="POST">
+                    {% csrf_token %}
+                  <div class="form-group">
+                  <label for="DOB">DOB</label>
+                  <input type="date" name="DOB" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="Height">Height</label>
+                  <input type="text" name="Height" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="Weight">Weight</label>
+                  <input type="text" name="Weight" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="Smoke">Do you Smoke</label>
+                  <select name="Smoke" class="form-control" required>
+                  <option value="" selected="true" disabled="disabled">Select</option>
+                  <option value="Yes">Yes </option>
+                  <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="Alcohol">Do you Consume Alcohol</label>
+                  <select name="Alcohol" class="form-control" required>
+                  <option value="" selected="true" disabled="disabled">Select</option>
+                  <option value="Frequently">Frequently </option>
+                  <option value="Socially">Socially</option>
+                  <option value="No">No</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="Allergy">Allergy</label>
+                  <input type="text" name="Allergy" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="Current_Medication">Current Medication</label>
+                  <input type="text" name="Current_Medication" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="Blood_Group">Blood Group </label>
+                  <select name="Blood_Group" class="form-control" required>
+                  <option value="" selected="true" disabled="disabled">Select</option>
+                  <option value="A+">A+ </option>
+                  <option value="A-">A- </option>
+                  <option value="B+">B+ </option>
+                  <option value="B-">B- </option>
+                  <option value="AB+">AB+ </option>
+                  <option value="AB-">AB- </option>
+                  <option value="O+">O+ </option>
+                  <option value="O-">O- </option>
+                  </select>
+                </div>
+
+                <input type="submit" value="Submit" class="btn btn-secondary btn-block">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+    
