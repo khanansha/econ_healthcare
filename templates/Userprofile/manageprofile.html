@@ -14,61 +14,65 @@
             <div class="card-body">
             {% include 'partials/_alerts.html' %}
                
-                <form action="{% url 'profile' %}" method="POST">
+                <form action="{% url 'managepro' %}" method="POST">
                     {% csrf_token %}
+                {% for profile in profile %}
                   <div class="form-group">
                   <label for="DOB">DOB</label>
-                  <input type="date" name="DOB" class="form-control" required>
+                  <input type="date" name="DOB" class="form-control" value="{{ profile.DOB }}" required>
                 </div>
                 <div class="form-group">
                   <label for="Height">Height</label>
-                  <input type="text" name="Height" class="form-control" required>
+                  <input type="text" name="Height" class="form-control" value="{{ profile.Height }}" required>
                 </div>
                 <div class="form-group">
                   <label for="Weight">Weight</label>
-                  <input type="text" name="Weight" class="form-control" required>
+                  <input type="text" name="Weight" class="form-control" value="{{ profile.Weight }}" required>
                 </div>
                 <div class="form-group">
                   <label for="Smoke">Do you Smoke</label>
                   <select name="Smoke" class="form-control" required>
-                  <option value="" selected="true" disabled="disabled">Select</option>
-                  <option value="Yes">Yes </option>
-                  <option value="No">No</option>
+                  <option value=""   disabled=""></option>
+                  <option value="Yes" selected="true">Yes </option>
+                  <option value="No" {% if profile.Blood_Group == 'No' %}selected="selected"{% endif %}>No</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="Alcohol">Do you Consume Alcohol</label>
                   <select name="Alcohol" class="form-control" required>
-                  <option value="" selected="true" disabled="disabled">Select</option>
-                  <option value="Frequently">Frequently </option>
-                  <option value="Socially">Socially</option>
+                  <option value=""   disabled=""></option>
+                  <option value="Frequently" selected="true">Frequently </option>
+                  <option value="Socially"{% if profile.Blood_Group == 'Socially' %}selected="selected"{% endif %}>Socially</option>
                   <option value="No">No</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="Allergy">Allergy</label>
-                  <input type="text" name="Allergy" class="form-control" required>
+                  <input type="text" name="Allergy" class="form-control" value="{{ profile.Allergy }}" required>
                 </div>
                 <div class="form-group">
                   <label for="Current_Medication">Current Medication</label>
-                  <input type="text" name="Current_Medication" class="form-control" required>
+                  <input type="text" name="Current_Medication" class="form-control" value="{{ profile.Current_Medication }}"  required>
                 </div>
                 <div class="form-group">
                   <label for="Blood_Group">Blood Group </label>
                   <select name="Blood_Group" class="form-control" required>
-                  <option value="" selected="true" disabled="disabled">Select</option>
-                  <option value="A+">A+ </option>
-                  <option value="A-">A- </option>
-                  <option value="B+">B+ </option>
-                  <option value="B-">B- </option>
-                  <option value="AB+">AB+ </option>
-                  <option value="AB-">AB- </option>
-                  <option value="O+">O+ </option>
-                  <option value="O-">O- </option>
+                  <option value=""   disabled=""></option>
+                  
+                  <option value="A+" selected="true">A+ </option>
+                  
+                  <option value="A-" {% if profile.Blood_Group == 'A-' %}selected="selected"{% endif %}>A- </option>
+                  <option value="B+" {% if profile.Blood_Group == 'B-' %}selected="selected"{% endif %}>B+ </option>
+                  <option value="B-" {% if profile.Blood_Group == 'B-' %}selected="selected"{% endif %}>B- </option>
+                  <option value="AB+" {% if profile.Blood_Group == 'AB+' %}selected="selected"{% endif %}>AB+ </option>
+                  <option value="AB-" {% if profile.Blood_Group == 'AB-' %}selected="selected"{% endif %}>AB- </option>
+                  <option value="O+" {% if profile.Blood_Group == 'O+' %}selected="selected"{% endif %}>O+ </option>
+                  <option value="O-" {% if profile.Blood_Group == 'O-' %}selected="selected"{% endif %}>O- </option>
                   </select>
                 </div>
+                {% endfor %}
 
-                <input type="submit" value="Submit" class="btn btn-secondary btn-block">
+                <input type="submit" value="Update" class="btn btn-secondary btn-block">
               </form>
             </div>
           </div>

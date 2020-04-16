@@ -26,7 +26,7 @@ select_bloodgroup = (
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    DOB = models.DateField(null=True)
+    DOB = models.CharField(max_length=100, null=True)
     Height = models.CharField(max_length=100, null=True)
     Weight = models.CharField(max_length=100, null=True)
     Smoke = models.CharField(max_length=100, choices=select, null=True)

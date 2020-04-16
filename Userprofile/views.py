@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Profile
-
+from django.contrib import messages
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -34,6 +34,7 @@ def profile(request):
 
 
 def managepro(request):
+
     if request.method == "POST":
         DOB = request.POST['DOB']
         Height = request.POST['Height']
@@ -43,8 +44,20 @@ def managepro(request):
         Allergy = request.POST['Allergy']
         Current_Medication = request.POST['Current_Medication']
         Blood_Group = request.POST['Blood_Group']
+        user_id = request.user.id
+        # print(user_id)
+        u = Profile.objects.filter(user_id=request.user.id).update(
+            DOB=DOB, Height=Height, Weight=Weight, Smoke=Smoke, Alcohol=Alcohol, Allergy=Allergy, Current_Medication=Current_Medication, Blood_Group=Blood_Group)
+        messages.success(
+            request, 'your profile has successfully  updated')
 
-    return HttpResponse("hoo")
+        return redirect('index')
+    else:
+
+        profile = Profile.objects.filter(user_id=request.user.id)
+
+        # print(profile)
+        return render(request, 'Userprofile/manageprofile.html', {'profile': profile})
 
 
 def covid(request):

@@ -194,10 +194,10 @@ def resetpass(request):
 
                 return redirect('index')
 
-            else:
+        else:
 
-                messages.error(request, 'Passwords do not match')
-                return redirect('resetpass')
+            messages.error(request, 'Passwords do not match')
+            return redirect('resetpass')
 
     else:
 
