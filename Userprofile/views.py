@@ -66,3 +66,7 @@ def covid(request):
 
 def home(request):
     return HttpResponse(" Welcome to Generali Concierge Services")
+
+
+def dial(request):
+    return render(request, 'Userprofile/dial.html')
