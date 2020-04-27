@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from .models import Profile
 from django.contrib import messages
 from django.contrib.auth.models import User
+#import json as simplejson
+import json
+import requests
+#from django.utils import simplejson
 
 # Create your views here.
 
@@ -70,3 +74,44 @@ def home(request):
 
 def dial(request):
     return render(request, 'Userprofile/dial.html')
+
+
+def doctor_spcl(request):
+
+    # params = {'gpsLatitude': '19.10384', 'gpsLongitude': '72.86821', 'page': 0, 'size': 10, 'criteria': 'Dental', 'distance': '2km'}
+    # endpoint = 'https://qa-gateway.zoylo.com/zoylogateway-0.0.1-SNAPSHOT/api/user-search/popular-search?provider-type=DOCTOR_CLINIC'
+
+    # # header = {'Accept': 'application/json'}
+    # req = requests.get(endpoint, params=params, headers=header)
+    # #response_dict = json.loads(req.text)
+    # return HttpResponse(req)
+
+    url = "https://qa-gateway.zoylo.com/zoylogateway-0.0.1-SNAPSHOT/api/user-search/popular-search?provider-type=DOCTOR_CLINIC"
+    payload = {}
+    headers = {}
+    response = requests.get(url, headers=headers, data=payload)
+    return HttpResponse(response)
+
+    # print(response_dict)
+# 'https://qa-gateway.zoylo.com/zoylogateway-0.0.1-SNAPSHOT/api/user-search/popular-search?provider-type=DOCTOR_CLINIC'
+# 'https://qa-gateway.zoylo.com/zoylogateway-0.0.1-SNAPSHOT/zoylodoctor/zoylodoctor-0.0.1-SNAPSHOT/api/doctor-details/client-doctors'
+
+
+def doctor_search(request):
+    url = "https://qa-gateway.zoylo.com/zoylogateway-0.0.1-SNAPSHOT/zoylodoctor/zoylodoctor-0.0.1-SNAPSHOT//api/doctor-details/client-doctors"
+
+    payload = "{\n    \"gpsLatitude\": 28.653458,\n    \"gpsLongitude\": 77.123767,\n    \"page\": 0,\n    \"size\": 10,\n    \"criteria\": \"Dental\",\n    \"distance\": \"20km\"\n}"
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.post(url, headers=headers, data=payload)
+    return HttpResponse(response)
+
+
+def doctor_details(request):
+    url = "https://qa-gateway.zoylo.com/zoylogateway-0.0.1-SNAPSHOT/zoyloadmin/zoyloadmin-0.0.1-SNAPSHOT/api/doctor-details/client-doctor-details?doctorId=5a26e52aca07621fcc69b609"
+    payload = {}
+    headers = {}
+    response = requests.get(url, headers=headers, data=payload)
+    return HttpResponse(response)

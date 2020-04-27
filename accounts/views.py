@@ -19,7 +19,7 @@ from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.utils.encoding import force_bytes, force_text
 from Userprofile.models import Profile
-
+from .models import Registrations
 # Create your views here.
 
 
@@ -41,10 +41,23 @@ def register(request):
         password = request.POST['password']
 
         password2 = request.POST['password2']
+        mobile_no = request.POST['mobile_no']
+        gender = request.POST['gender']
 
     # Check if passwords match
 
         if password == password2:
+            min_length = 8
+            if len(password) < min_length:
+                messages.error(
+                    request, 'password should have atleast 8 characters')
+                return redirect('register')
+            else:
+                if password.isdigit():
+                    messages.error(
+                        request, 'password should not all numeric')
+                    return redirect('register')
+
             # Check username
             if User.objects.filter(username=username).exists():
 
@@ -69,6 +82,9 @@ def register(request):
                     u = User.objects.filter(email=email)
                     uid = u[0].id
                     # print(uid)
+                    register = Registrations(
+                        user_id=uid, mobile_no=mobile_no, gender=gender)
+                    register.save()
                     pro = Profile(user_id=uid)
                     pro.save()
 
